@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int maior(double v[], int n) {
+int maiorT(float v[], int n) {
 
     int maior = v[0];
 
@@ -16,11 +16,11 @@ int maior(double v[], int n) {
 
 int main() {
     // Exemplo de uso da função
-    double numeros[] = {1.5, 3.2, 0.7, 4.8, 2.1};
-    int tamanho = sizeof(numeros) / sizeof(numeros[0]);
+    float v[] = {1.5, 3.2, 0.7, 4.8, 2.1};
+    int n = 5;
     
-    double maior = encontrarMaiorValor(numeros, tamanho);
-    printf("O maior valor no vetor é: %.2f\n", maior);
+    float result = maiorT(v, n);
+    printf("Maior valor no vetor: %.f\n", result);
     
     return 0;
 }
