@@ -1,15 +1,23 @@
 #include <stdio.h>
 
-int main(){
+int fat(n){
 
-    int n, fatorial;
+    int fatorial;
     fatorial = n;
 
     for (int i=1; i<n; i++){
         fatorial = fatorial * (n-i);
     } 
 
-    printf("%i", fatorial);
+    return fatorial;
+}
+
+int main(){
+    int n, f;
+    scanf("%i", &n);
+
+    f = fat(n);
+    printf("%i", f);
 
     return 0;
 }
