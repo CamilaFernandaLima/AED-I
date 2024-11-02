@@ -1,26 +1,27 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int maiorT(float v[], int n) {
+int main(){
+    int x;
+    int a=0,b=0,c=0,d=0,e=0,f=0;
+    
 
-    int maior = v[0];
+    for (int i=0; i<20; i++){
+        x = (rand() % 6) + 1;
 
-    for(int i=1; i<n; i++){
-        if (v[i]>maior){
-            maior = v[i];
+        switch (x){
+        case 1: a += 1; break;
+        case 2: b += 1; break;
+        case 3: c += 1; break;
+        case 4: d += 1; break;
+        case 5: e += 1; break;
+        
+        default: f += 1; break;
         }
     }
 
-    return maior;
-}
+    printf("1: %i vezes\n 2: %i vezes\n 3: %i vezes\n 4: %i vezes\n 5: %i vezes\n 6: %i vezes\n", a,b,c,d,e,f);
 
-
-int main() {
-    // Exemplo de uso da função
-    float v[] = {1.5, 3.2, 0.7, 4.8, 2.1};
-    int n = 5;
-    
-    float result = maiorT(v, n);
-    printf("Maior valor no vetor: %.f\n", result);
-    
     return 0;
+
 }
