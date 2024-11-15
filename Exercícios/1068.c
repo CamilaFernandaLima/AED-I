@@ -24,6 +24,7 @@ void desempilha(pilha *pilha){
     } 
 }
 
+
 int main(){
 
     char conta[1000];
@@ -50,6 +51,7 @@ int main(){
         } else{
             printf("incorrect\n");
         }
+
         p.topo = 0;
     }
     
