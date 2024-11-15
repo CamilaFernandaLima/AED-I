@@ -20,3 +20,18 @@ int main(){
     
 
 }
+
+void remover(item *cabeca, int num){
+    item *no = cabeca;
+    item *aux = cabeca->proximo;
+
+    while(aux != NULL && aux->valor != num){
+        no = aux;
+        aux = aux->proximo;
+    }
+    if (aux != NULL){
+        no->proximo = aux->proximo;
+        free(no);
+    }
+
+}

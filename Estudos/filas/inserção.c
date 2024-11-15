@@ -6,28 +6,29 @@ typedef struct no {
     struct no *proximo;
 } No;
 
-void inserir(No **fila, int num){
-    No *aux, *novo = malloc(sizeof(No));
-    if (novo){
-        novo->valor = num;
-        novo->proximo = NULL;
+void inserir(No *cabeca, int num){
+    No *novo;
+    novo = malloc(sizeof(No));
 
-        //inserção sempre no final
-        //verificar se a fila esta vazia:
-        if (*fila == NULL){
-            *fila = novo;
-        } else{
-            aux = *fila;
-            while(aux->proximo != NULL)
-                aux = aux->proximo;
-            aux->proximo = novo;
+    novo->valor = num; 
+    novo->proximo = NULL;
 
-        }
+    //inserção sempre no final
+    //verificar se a fila esta vazia:
+    
+    No *atual = cabeca;
+    while(atual->proximo != NULL){
+        atual = atual->proximo;
     }
+    
+    atual->proximo = novo;
 }
 
 
 int main(){
-    
+    No *cabeca = (No*)malloc(sizeof(No));
+    cabeca->proximo = NULL;
+
+    inserir(cabeca, 6);
 
 }
