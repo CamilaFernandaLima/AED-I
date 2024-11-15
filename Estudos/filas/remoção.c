@@ -6,32 +6,32 @@ typedef struct no {
     struct no *proximo;
 } No;
 
-void remover(No **fila){
-    No *remover = NULL;
 
-    if(*fila){
-        remover = *fila;
-        *fila = remover->proximo;
+void remover(No *cabeca, int num){
+    No *no = cabeca;
+    No *anterior = NULL;
+
+    while(no != NULL && no->valor != num){
+        anterior = no;
+        no = no->proximo;
+    }
+
+    if (no != NULL){
+        if(anterior != NULL){
+            anterior->proximo = no->proximo;
+        } else{
+            cabeca->proximo = no->proximo;
+        }
+        free(no);
     }
 }
 
 
 int main(){
-    
+    No *cabeca = (No*)malloc(sizeof(No));
+    cabeca->proximo = NULL;
+
+    remover(cabeca, 6);
 
 }
 
-void remover(item *cabeca, int num){
-    item *no = cabeca;
-    item *aux = cabeca->proximo;
-
-    while(aux != NULL && aux->valor != num){
-        no = aux;
-        aux = aux->proximo;
-    }
-    if (aux != NULL){
-        no->proximo = aux->proximo;
-        free(no);
-    }
-
-}
