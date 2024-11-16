@@ -32,3 +32,30 @@ int main(){
     inserir(cabeca, 6);
 
 }
+
+/* SEM PONTEIROS 
+
+struct{
+    int vetor[tam];
+    int fim;
+} fila;
+
+main: 
+    fila f;
+    f.fim = 0;
+    
+inserir:
+    f.vetor[f.fim] = num;
+    f.fim++;
+
+remover: 
+    for(int i=0; i<f.fim; i++){
+        f.vetor[i] = f.vetor[i+1];
+    }
+    f.fim--;
+
+imprimir: 
+    for(int i=0; i<f.fim; i++){
+        printf("%d", f.vetor[i]);
+    }
+*/
