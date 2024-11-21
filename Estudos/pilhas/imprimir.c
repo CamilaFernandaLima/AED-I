@@ -1,13 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-    int vetor[200];
-    int topo;
-} pilha;
+typedef struct no {
+    int valor;
+    struct no *proximo;
+} No;
 
-void imprime(pilha *pilha){
-    for(int i=pilha->topo; i>0; i--){
-       printf("%d\n", pilha->vetor[i]); 
+void imprimir(No **cabeca){
+    No *atual = (*cabeca)->proximo;
+
+    while(atual != NULL){ 
+        printf("%d ", atual->valor); 
+        atual = atual->proximo; 
     }
+    printf("\n");
+
+}
+
+int main(){
+    No *cabeca = malloc(sizeof(No));
+    imprimir(cabeca);
 }
