@@ -1,18 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-    int vetor[200];
-    int topo;
+typedef struct cel {
+    int valor;
+    struct cel *proximo;
 } pilha;
 
-void empilha(int valor, pilha *pilha){
+void empilha(int num, pilha *p){
+    pilha *nova;
+    nova = malloc(sizeof(pilha));
 
-    if (pilha->topo < 200){
-        pilha->vetor[pilha->topo] = valor;
-        pilha->topo ++;
-    } else{
-        printf("Não há mais espaço na pilha.");
-    }
-    
+    nova->valor = num;
+    nova->proximo = p->proximo;
+    p->proximo = nova;
+}
+
+int main(){
+    pilha cabeca;
+    pilha *p;
+
+    p = &cabeca;
+    p->proximo = NULL;
+
+    empilha(6, &p);
 }

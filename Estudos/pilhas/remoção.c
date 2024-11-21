@@ -1,16 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-    int vetor[200];
-    int topo;
+typedef struct cel {
+    int valor;
+    struct cel *proximo;
 } pilha;
 
-void desempilha(pilha *pilha){
+void desepilha(pilha *p){
+    int x;
+    pilha *aux;
 
-    if (pilha->topo > 0){
-        pilha->topo--;
-    } else{
-        printf("A pilha está vazia.");
-    }
+    aux = p->proximo;
+    x = aux->valor;
+    p->proximo = aux->proximo;
+    free(aux);
+}
+
+int main(){
+    pilha cabeca;
+    pilha *p;
+
+    p = &cabeca;
+    p->proximo = NULL;
+
+    desempilha(&p);
 }
