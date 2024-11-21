@@ -6,8 +6,8 @@ typedef struct no {
     struct no *proximo;
 } No;
 
-void imprimir(No *cabeca){
-    No *atual = cabeca->proximo;
+void imprimir(No **cabeca){
+    No *atual = (*cabeca)->proximo;
 
     while(atual != NULL){ 
         printf("%d ", atual->valor); 

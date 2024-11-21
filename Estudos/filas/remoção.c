@@ -7,31 +7,24 @@ typedef struct no {
 } No;
 
 
-void remover(No *cabeca, int num){
-    No *no = cabeca;
-    No *anterior = NULL;
-
-    while(no != NULL && no->valor != num){
-        anterior = no;
-        no = no->proximo;
-    }
-
-    if (no != NULL){
-        if(anterior != NULL){
-            anterior->proximo = no->proximo;
-        } else{
-            cabeca->proximo = no->proximo;
-        }
-        free(no);
-    }
+void remover(No **cabeca){
+    No *aux;
+    
+    aux = *cabeca;
+    *cabeca = aux->proximo;
+    free(aux);
+   
 }
 
 
 int main(){
-    No *cabeca = (No*)malloc(sizeof(No));
+    int x = 0;
+    No *cabeca = malloc(sizeof(No));
+
+    cabeca->valor = x;
     cabeca->proximo = NULL;
 
-    remover(cabeca, 6);
-
+    remover(&cabeca);
+    return 0;
 }
 
