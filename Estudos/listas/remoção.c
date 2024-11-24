@@ -8,37 +8,25 @@ typedef struct no{
 
 
 No* remove (No **lista, int num){
-    No *aux, *remover = NULL;
+    No *ant, *aux= *lista;
 
     if(*lista){
-        if((*lista)->valor == num){
-            remover = *lista;
-            *lista = remover->prox;
-        } else{
-            aux = *lista;  // criado para não alterar valor da lisat
-            while(aux->prox && aux->prox->valor != num){
-                aux = aux->prox;
-            }
-            if(aux->prox){
-                remover = aux-> prox;
-                aux->prox = remover->prox;
-            }
+        while(aux != NULL && aux->valor != num){
+            ant = aux;
+            aux = aux->prox;
         }
+        if (aux == NULL) printf("Não encontrado");
+        if (ant == NULL) *lista = aux->prox;
+        else{
+            ant->prox = aux->prox;
+        
+        } 
+        free(aux);
     }
-
-    return remover;
+    return *lista;
 }
 
 int main(){
-
-    int valor, anterior;
-    No *remove, *lista = NULL;
-
-    printf("Digite um valor para remover: ");
-    scanf("%d", &valor);
-    remove = remover(&lista, valor);
-    if(remove){
-        free(remove);
-    }
-
+    
+    return 0;
 }
