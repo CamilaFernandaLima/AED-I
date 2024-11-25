@@ -5,10 +5,10 @@ void insertionsort(int *v, int n){
 
     for(i=1; i<n; i++){
         aux = v[i];
-        for (j=i; (j<0) && (aux< v[j-1]); j--){
-            v[j] = v[j-1]; //desloca todos uma posição para a frente.
+        for (j=i-1; (j>=0) && (aux< v[j-1]); j--){
+            v[j+1] = v[j]; //desloca todos uma posição para a frente.
         }
-        v[j] = aux;
+        v[j+1] = aux;
     }
 }
 
