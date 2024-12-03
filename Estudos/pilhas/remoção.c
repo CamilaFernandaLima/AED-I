@@ -6,7 +6,7 @@ typedef struct cel {
     struct cel *proximo;
 } pilha;
 
-void desepilha(pilha *p){
+void desempilha(pilha *p){
     int x;
     pilha *aux;
 
