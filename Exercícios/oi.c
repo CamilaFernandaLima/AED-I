@@ -1,105 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct elementolista {
-    int valor;
-    struct elementolista *prox;
-    struct elementolista *ant;
-} item;
+typedef struct {
+    char string[51];
+    int original_index;
+} String;
 
-void inserir(item *cabeca, int num) {
-    item *novo = malloc(sizeof(item));
-    if (novo == NULL) {
-        perror("Erro ao alocar memória");
-        exit(1);
-    }
-    novo->valor = num;
-    novo->prox = NULL;
-    novo->ant = NULL;
+int compare(const void *a, const void *b) {
+    String *str1 = (String *)a;
+    String *str2 = (String *)b;
 
-    item *aux = cabeca;
-    while (aux->prox != NULL) {
-        aux = aux->prox;
-    }
-    aux->prox = novo;
-    novo->ant = aux; // Atualiza o ponteiro para o nó anterior
-}
+    int len1 = strlen(str1->string);
+    int len2 = strlen(str2->string);
 
-void imprimir(item *cabeca) {
-    item *atual = cabeca->prox; // Ignora o nó sentinela
-    while (atual != NULL) {
-        printf("%d\n", atual->valor);
-        atual = atual->prox;
-    }
-}
-
-void imprimir_reverso(item *cabeca) {
-    if (cabeca == NULL || cabeca->prox == NULL) return; // Lista vazia
-    item *ultimo = cabeca;
-    while (ultimo->prox != NULL) {
-        ultimo = ultimo->prox; // Encontra o último nó
-    }
-    while (ultimo != cabeca) { // Imprime de trás para frente
-        printf("%d\n", ultimo->valor);
-        ultimo = ultimo->ant;
-    }
-}
-
-void insertionsort(item *cabeca) {
-    if (cabeca == NULL || cabeca->prox == NULL) return;
-
-    item *ordenado = NULL;
-    item *atual = cabeca->prox;
-
-    while (atual != NULL) {
-        item *proximo = atual->prox;
-
-        if (ordenado == NULL || atual->valor <= ordenado->valor) {
-            atual->prox = ordenado;
-            if (ordenado != NULL) ordenado->ant = atual;
-            atual->ant = NULL;
-            ordenado = atual;
-        } else {
-            item *aux = ordenado;
-            while (aux->prox != NULL && aux->prox->valor < atual->valor) {
-                aux = aux->prox;
-            }
-            atual->prox = aux->prox;
-            if (aux->prox != NULL) aux->prox->ant = atual;
-            aux->prox = atual;
-            atual->ant = aux;
-        }
-        atual = proximo;
+    // Comparar pelo tamanho
+    if (len1 != len2) {
+        return len1 - len2;
     }
 
-    cabeca->prox = ordenado;
-    if (ordenado != NULL) ordenado->ant = cabeca;
+    // Se o tamanho for igual, manter a ordem original
+    return str1->original_index - str2->original_index;
 }
 
 int main() {
-    item *pares = malloc(sizeof(item));
-    pares->prox = NULL;
+    int n;
 
-    item *impares = malloc(sizeof(item));
-    impares->prox = NULL;
-
-    int n, x;
+    // Ler o número de casos de teste
     scanf("%d", &n);
+    getchar(); // Consumir o caractere de nova linha após o número
 
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &x);
-        if (x % 2 == 0) {
-            inserir(pares, x);
-        } else {
-            inserir(impares, x);
+    String palavras[50];
+    int count = 0;
+
+    while (n--) {
+        char linha[2600]; // Buffer para ler a linha de entrada
+        fgets(linha, sizeof(linha), stdin);
+
+        char *token = strtok(linha, " \n");
+        while (token != NULL) {
+            strcpy(palavras[count].string, token);
+            palavras[count].original_index = count;
+            count++;
+            token = strtok(NULL, " \n");
         }
+
+        // Ordenar as palavras
+        qsort(palavras, count, sizeof(String), compare);
     }
 
-    insertionsort(pares);
-    insertionsort(impares);
-
-    imprimir(pares);
-    imprimir_reverso(impares);
+            // Imprimir as palavras ordenadas
+    for (int i = 0; i < count; i++) {
+        printf("%s", palavras[i].string);
+        if (i < count - 1) {
+            printf(" ");
+        }
+    }
 
     return 0;
 }
