@@ -1,4 +1,4 @@
-//acha o melhor valor e coloca na primeira posição, depois descarta a primeira posição até acabar o vetor.
+//acha o menor valor e coloca na primeira posição, depois descarta a primeira posição até acabar o vetor.
 
 #include <stdio.h>
 
