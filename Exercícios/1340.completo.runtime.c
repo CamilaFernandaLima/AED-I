@@ -26,13 +26,13 @@ void insere_fila(int v, no **cabeca){
 }
 
 int remove_fila(no **cabeca){
+    if (*cabeca == NULL) return -1;
+
     no *aux = *cabeca;
     int x = aux->valor;
 
-    if(*cabeca != NULL){
-        *cabeca = aux->prox;
-        free(aux);
-    }
+    *cabeca = aux->prox;
+    free(aux);
     return x;
 
 }
@@ -47,13 +47,14 @@ void insere_pilha(int v, no **cabeca){
 }
 
 int remove_pilha(no **cabeca){
+    if (*cabeca == NULL) return -1;
+
     no *aux = *cabeca;
     int x = aux->valor;
 
-    if (*cabeca != NULL){
-        *cabeca = aux->prox;
-        free(aux); 
-    }
+    *cabeca = aux->prox;
+    free(aux); 
+
     return x;
 }
 
@@ -76,21 +77,20 @@ void insere_p(int v, no **cabeca){
 
 }
 
+
 int main(){
     bool is_stack = true;
     bool is_queue = true;
     bool is_pq = true;
     no *pilha = NULL, *fila = NULL, *pq_i = NULL;
 
-    int n;
+    int n, comando, x;
 
     scanf("%d", &n);
     for(int i=0; i<n; i++){
-        int comando;
         scanf("%d", &comando);
 
         if(comando == 1){
-            int x;
             scanf("%d", &x);
 
             if (is_stack) insere_pilha(x, &pilha);
@@ -98,7 +98,6 @@ int main(){
             if (is_pq) insere_p(x, &pq_i);
 
         } else if (comando == 2){
-            int x;
             scanf("%d", &x);
 
             if(is_stack){
@@ -112,13 +111,12 @@ int main(){
                 }    
             }
             if(is_pq){
-                if (pq_i == NULL || remove_fila(&pq_i) != x){
+                if (pq_i == NULL || remove_pilha(&pq_i) != x){
                     is_pq = false;
                 }    
             }   
         }
     }
-
 
     //Verificação dos resultados:
     if (is_stack + is_queue + is_pq > 1) printf("not sure\n");
