@@ -2,70 +2,67 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
-    int vetor[1000];
-    int topo;
-} pilha;
+struct cel {
+    int termo;
+    struct cel *seg;
+};
 
-void push(int x, pilha *p){
+typedef struct cel celula;
 
-    if (p->topo < 1000){
-        p->vetor[p->topo] = x;
-        p->topo ++;
-    }
-}
-
-void pop(pilha *p){
-
-    if(p->topo > 0){
-        p->topo--;
-    } else{
-        printf("EMPTY\n");
-    }
-}
-
-int min(pilha *p){
-
-    if (p->topo == 0){
-        printf("EMPTY\n");
-        return -1;
-    }else{
-        int menor = p->vetor[0];
-        for (int i = 1; i < p->topo; i++){
-            if (p->vetor[i] < menor){
-                menor = p->vetor[i];
-            } 
-        }
-        return menor; 
-    }
+void inserir(int y, celula *p){
     
+    celula *nova;
+    nova = malloc(sizeof(celula));
+    nova->termo = y;
+    nova->seg = p->seg;
+    p->seg = nova;
+}
+
+void remover(celula *p) {
+    if (p->seg != NULL) {
+        celula *lixo = p->seg;
+        p->seg = lixo->seg;
+        free(lixo);
+    }
 }
 
 int main(){
-    int n, num;
+    celula *cabeca = malloc(sizeof(celula));
+    cabeca->seg = NULL;
+
+    celula *menores = malloc(sizeof(celula));
+    menores->seg = NULL;
+
+    int n;
     scanf("%d", &n);
 
-    char entrada[10];
-
-    pilha p;
-    p.topo = 0;
-
-    for(int i=0; i<n; i++){
+    for(int i = 0; i<n;i++){
+        char entrada[10];
+        int num;
         scanf("%s", entrada);
+        getchar();
 
-        if (strcmp(entrada, "PUSH") == 0){
+        if(strcmp(entrada, "PUSH") == 0){
             scanf("%d", &num);
-            push(num, &p);
-        } else if (strcmp(entrada, "POP") == 0){
-            pop(&p);
-        } else if (strcmp(entrada, "MIN") == 0){
-            int a = min(&p);
-            if (a != -1){
-                printf("%d\n", a);
+            inserir(num, cabeca);
+            if(menores->seg == NULL || num <= (menores->seg)->termo ){
+                inserir(num, menores);
             }
-            
+        }else if(strcmp(entrada, "POP") == 0){
+            if (cabeca->seg == NULL) {
+                printf("EMPTY\n");
+            } else {
+            if ((cabeca->seg)->termo == (menores->seg)->termo) {
+                remover(menores);
+            }
+            remover(cabeca);
+            }
+        }else if(strcmp(entrada, "MIN") == 0){
+            if(menores->seg != NULL) printf("%d\n", (menores->seg)->termo);
+            else printf("EMPTY\n");
         }
     }
+
 
     return 0;
 }
